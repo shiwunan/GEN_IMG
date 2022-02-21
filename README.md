@@ -1,2 +1,2 @@
 # GEN_IMG
- Generative art based on images
+ Generative string art based on images

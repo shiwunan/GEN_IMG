@@ -1,3 +1,7 @@
+var lnWt = 1;   //line weight
+var res = 2;    //number of pixels to skip
+
+
 // Get a reference to the image you want the pixels of and its dimensions
 var srcImg = document.getElementById("srcImg");
 var w = srcImg.width,
@@ -49,7 +53,7 @@ for (let x = 0; x < w; x+=2) {
           )
         ).slice(-6);
       newLine.setAttribute("stroke", hex);
-      newLine.setAttribute("stroke-width", "0.1");
+      newLine.setAttribute("stroke-width", Math.random());
       out.appendChild(newLine);
     }
   }

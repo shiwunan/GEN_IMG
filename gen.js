@@ -20,8 +20,6 @@ ctx.drawImage(srcImg, 0, 0);
 // of pixel (x, y), followed by green, blue and alpha
 var data = ctx.getImageData(0, 0, w, h).data;
 
-console.log(data);
-
 // create the svg element
 const out = document.createElementNS("http://www.w3.org/2000/svg", "svg");
 
@@ -29,30 +27,31 @@ const out = document.createElementNS("http://www.w3.org/2000/svg", "svg");
 out.setAttribute("width", w);
 out.setAttribute("height", h);
 
-for (let x = 0; x < w; x++) {
-  for (let y = 0; y < h; y++) {
-    var newLine = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "line"
-    );
-    newLine.setAttribute("x1", x);
-    newLine.setAttribute("y1", y);
-    newLine.setAttribute("x2", x+genRand(-4, 4));
-    newLine.setAttribute("y2", y+genRand(-4, 4));
-    var hex =
-      "#" +
-      (
-        "000000" +
-        rgbToHex(
-          data[(y * srcImg.width + x) * 4],
-          data[(y * srcImg.width + x) * 4 + 1],
-          data[(y * srcImg.width + x) * 4 + 2]
-        )
-      ).slice(-6);
-    console.log(hex);
-    newLine.setAttribute("stroke", hex);
-    newLine.setAttribute("stroke-width", "0.1");
-    out.appendChild(newLine);
+for (let x = 0; x < w; x+=2) {
+  for (let y = 0; y < h; y+=2) {
+    if (data[(y*srcImg.width + x)*4+3] > 0) {
+      var newLine = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "line"
+      );
+      newLine.setAttribute("x1", x);
+      newLine.setAttribute("y1", y);
+      newLine.setAttribute("x2", x+genRand(-50, 50));
+      newLine.setAttribute("y2", y+genRand(-50, 50));
+      var hex =
+        "#" +
+        (
+          "000000" +
+          rgbToHex(
+            data[(y * srcImg.width + x) * 4],
+            data[(y * srcImg.width + x) * 4 + 1],
+            data[(y * srcImg.width + x) * 4 + 2]
+          )
+        ).slice(-6);
+      newLine.setAttribute("stroke", hex);
+      newLine.setAttribute("stroke-width", "0.1");
+      out.appendChild(newLine);
+    }
   }
 }
 
